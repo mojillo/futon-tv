@@ -29,6 +29,9 @@ import io.github.landwarderer.futon.core.nav.AppRouter
 import io.github.landwarderer.futon.core.ui.util.ActionModeDelegate
 import io.github.landwarderer.futon.core.util.ext.isWebViewUnavailable
 import io.github.landwarderer.futon.main.ui.protect.ScreenshotPolicyHelper
+// FUTON-TV: Import TV utilities
+import io.github.mojillo.futontv.TvModeDetector
+import io.github.mojillo.futontv.focus.TvKeyHandler
 import androidx.appcompat.R as appcompatR
 
 abstract class BaseActivity<B : ViewBinding> :
@@ -46,6 +49,9 @@ abstract class BaseActivity<B : ViewBinding> :
 
 	@JvmField
 	val actionModeDelegate = ActionModeDelegate()
+
+	// FUTON-TV: TV key handler
+	private val tvKeyHandler by lazy { TvKeyHandler() }
 
 	private lateinit var entryPoint: BaseActivityEntryPoint
 
@@ -78,6 +84,14 @@ abstract class BaseActivity<B : ViewBinding> :
 	override fun onNewIntent(intent: Intent) {
 		putDataToExtras(intent)
 		super.onNewIntent(intent)
+	}
+
+	// FUTON-TV: Handle TV key events
+	override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+		if (TvModeDetector.isTvMode(this) && tvKeyHandler.handleKeyEvent(event.keyCode, event)) {
+			return true
+		}
+		return super.dispatchKeyEvent(event)
 	}
 
 	@Deprecated("Use ViewBinding", level = DeprecationLevel.ERROR)

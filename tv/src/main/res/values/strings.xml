@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Futon TV</string>
+    <string name="tv_welcome_title">Welcome to Futon TV</string>
+    <string name="tv_welcome_subtitle">Read manga on your TV with remote control</string>
+    <string name="tv_start">Start</string>
+</resources>

@@ -29,4 +29,5 @@ dependencyResolutionManagement {
 }
 
 include ':app'
+include ':tv'
 rootProject.name = "Futon"

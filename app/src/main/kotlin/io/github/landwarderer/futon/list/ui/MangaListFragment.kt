@@ -102,6 +102,12 @@ abstract class MangaListFragment :
 		super.onViewBindingCreated(binding, savedInstanceState)
 		listAdapter = onCreateAdapter()
 		spanResolver = GridSpanResolver(binding.root.resources)
+
+		// FUTON-TV: Enable TV focus for RecyclerView
+		if (TvModeDetector.isTvMode(requireContext())) {
+			binding.recyclerView.enableTvFocus()
+		}
+
 		selectionController = ListSelectionController(
 			appCompatDelegate = checkNotNull(findAppCompatDelegate()),
 			decoration = MangaSelectionDecoration(binding.root.context),

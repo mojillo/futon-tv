@@ -60,6 +60,9 @@ import io.github.landwarderer.futon.main.ui.owners.AppBarOwner
 import io.github.landwarderer.futon.main.ui.owners.BottomNavOwner
 import org.koitharu.kotatsu.parsers.model.Manga
 import io.github.landwarderer.futon.remotelist.ui.MangaSearchMenuProvider
+// FUTON-TV: Import TV utilities
+import io.github.mojillo.futontv.TvModeDetector
+import io.github.mojillo.futontv.focus.FocusHelper.enableTvFocus
 import io.github.landwarderer.futon.search.ui.suggestion.SearchSuggestionItemCallback
 import io.github.landwarderer.futon.search.ui.suggestion.SearchSuggestionListenerImpl
 import io.github.landwarderer.futon.search.ui.suggestion.SearchSuggestionMenuProvider
@@ -109,6 +112,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), AppBarOwner, BottomNav
 		super.onCreate(savedInstanceState)
 		setContentView(ActivityMainBinding.inflate(layoutInflater))
 		setSupportActionBar(viewBinding.searchBar)
+
+		// FUTON-TV: Enable TV focus if on TV
+		if (TvModeDetector.isTvMode(this)) {
+			viewBinding.bottomNav?.enableTvFocus()
+			viewBinding.navRail?.enableTvFocus()
+		}
 
 		viewBinding.fab?.setOnClickListener(this)
 		viewBinding.navRail?.headerView?.findViewById<View>(R.id.railFab)?.setOnClickListener(this)

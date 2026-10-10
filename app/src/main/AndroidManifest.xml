@@ -6,6 +6,14 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools">
 
+	<!-- FUTON-TV: TV features -->
+	<uses-feature
+		android:name="android.software.leanback"
+		android:required="false" />
+	<uses-feature
+		android:name="android.hardware.touchscreen"
+		android:required="false" />
+
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission
@@ -50,6 +58,7 @@
 		android:name="io.github.landwarderer.futon.FutonApp"
 		android:allowBackup="true"
 		android:backupAgent="io.github.landwarderer.futon.backups.domain.AppBackupAgent"
+		android:banner="@drawable/tv_banner"
 		android:dataExtractionRules="@xml/backup_rules"
 		android:enableOnBackInvokedCallback="@bool/is_predictive_back_enabled"
         android:fullBackupContent="@xml/backup_content"
@@ -66,6 +75,17 @@
 		android:supportsRtl="true"
 		android:theme="@style/Theme.Futon"
 		tools:ignore="UnusedAttribute">
+
+		<!-- FUTON-TV: TV launcher activity -->
+		<activity
+			android:name="io.github.mojillo.futontv.ui.TvLauncherActivity"
+			android:exported="true"
+			android:theme="@style/Theme.Futon">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+			</intent-filter>
+		</activity>
 
 		<activity
 			android:name="io.github.landwarderer.futon.main.ui.MainActivity"
